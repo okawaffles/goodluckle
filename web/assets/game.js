@@ -91,10 +91,13 @@ function update_boxes() {
 }
 
 if (navigator.userAgent.includes('Android') || navigator.userAgent.includes('iPhone') || navigator.userAgent.includes('iPad')) {
+    
     if (localStorage.getItem('mobilealert') != 'true') {   
         localStorage.setItem('mobilealert', 'true');
         alert('h..hii... uhh... this game... not intended for phones... sorry for ... jank workaround...... i add proper mobile support later.... sorry... this message wont appear again...');
     }
+
+    if (navigator.userAgent.includes('Firefox')) alert('YIKES. Goodluckle on Firefox Android is super broken, use Chrome Android instead please. You have been warned!');
 }
 
 let last_mobile_input_count = 0;
@@ -155,6 +158,8 @@ function start() {
             game_state.current_letter++;
             last_mobile_input_count = document.getElementById('keyboard').value.length;
         }
+
+        update_boxes();
 
         // if nothing changed then do nothing
     }
