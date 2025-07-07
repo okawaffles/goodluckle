@@ -17,7 +17,7 @@ let can_play = true;
 const d = new Date();
 const date = `${d.getFullYear()}-${d.getMonth()<10?'0':''}${d.getMonth()+1}-${d.getDate()<10?'0':''}${d.getDate()}`;
 
-fetch('/words.txt', {method: 'GET'}).then(r => {
+fetch('words.txt', {method: 'GET'}).then(r => {
     r.text().then(text => {
         valid_words = text.split('\n').map(word => word.trim())
         console.log(`loaded ${valid_words.length} valid words`);
@@ -39,7 +39,7 @@ document.onkeydown = function(event) {
             return;
         }
         // we use fetch to send the word to the server to prevent cheating
-        fetch(`/validate?word=${word.toLowerCase()}&date=${date}`, {method: 'POST'}).then(response => {
+        fetch(`validate?word=${word.toLowerCase()}&date=${date}`, {method: 'POST'}).then(response => {
             response.json().then(j => {
                 console.log(`result: ${j.result}`);
                 for (let i = 0; i < 5; i++) {
