@@ -54,6 +54,8 @@ document.onkeydown = function(event) {
                 localStorage.setItem('day', j.day);
 
                 document.getElementById('after').style.display = 'inline';
+                document.getElementById('keyboard').style.display = 'none';
+                document.getElementById('submit').style.display = 'none';
 
                 if (j.result == 'ccccc') {
                     document.getElementById('after-header').innerText = 'you win!';
@@ -135,7 +137,7 @@ function start() {
         result_share += 'https://millie.zone/goodluckle';
 
         try {
-            share(result_share);
+            navigator.share({text:result_share});
         } catch (e) {
             console.error(e);
             navigator.clipboard.writeText(result_share);
@@ -191,6 +193,8 @@ function start() {
                 localStorage.setItem('day', j.day);
 
                 document.getElementById('after').style.display = 'inline';
+                document.getElementById('keyboard').style.display = 'none';
+                document.getElementById('submit').style.display = 'none';
 
                 if (j.result == 'ccccc') {
                     document.getElementById('after-header').innerText = 'you win!';
