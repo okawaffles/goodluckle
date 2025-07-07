@@ -146,20 +146,21 @@ function start() {
         }
     };
 
-    document.getElementById('keyboard').oninput = function() {
-        // alert('input!');
-        if (document.getElementById('keyboard').value.length < last_mobile_input_count) {
-            // remove letter
-            game_state.letters[document.getElementById('keyboard').value.length] = '';
-        } else if (document.getElementById('keyboard').value.length > last_mobile_input_count) {
-            // add letter
-            game_state.letters[document.getElementById('keyboard').value.length] = document.getElementById('keyboard').value[document.getElementById('keyboard').value.length].toUpperCase();
+    document.getElementById('keyboard').addEventListener("input", (e) => {
+    const char = e.target.value;
+        if (char.length === 1 && /[a-zA-Z]/.test(char)) {
+            console.log(`Letter key pressed: ${char}`);
+            if (game_state.current_letter >= 5) {
+                console.log('Maximum letters reached');
+                input.value = ''; // clear input
+                return;
+            }
+            game_state.letters[game_state.current_letter] = char.toUpperCase();
+            game_state.current_letter++;
+            update_boxes();
         }
-
-        last_mobile_input_count = document.getElementById('keyboard').value.last_mobile_input_count;
-
-        update_boxes();
-
-        // if nothing changed then do nothing
-    }
+    
+        // Clear input so next keystroke works
+        input.value = '';
+    });
 }
