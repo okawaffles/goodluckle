@@ -147,20 +147,20 @@ function start() {
     };
 
     document.getElementById('keyboard').addEventListener("input", (e) => {
-    const char = e.target.value;
+        const char = e.target.value;
         if (char.length === 1 && /[a-zA-Z]/.test(char)) {
             console.log(`Letter key pressed: ${char}`);
             if (game_state.current_letter >= 5) {
                 console.log('Maximum letters reached');
-                input.value = ''; // clear input
+                document.getElementById('keyboard').value = ''; // clear input
                 return;
             }
             game_state.letters[game_state.current_letter] = char.toUpperCase();
             game_state.current_letter++;
             update_boxes();
         }
-    
+
         // Clear input so next keystroke works
-        input.value = '';
+        document.getElementById('keyboard').value = '';
     });
 }
