@@ -150,15 +150,13 @@ function start() {
         // alert('input!');
         if (document.getElementById('keyboard').value.length < last_mobile_input_count) {
             // remove letter
-            game_state.current_letter--;
-            game_state.letters[game_state.current_letter] = '';
-            last_mobile_input_count = document.getElementById('keyboard').value.length;
+            game_state.letters[document.getElementById('keyboard').value.length] = '';
         } else if (document.getElementById('keyboard').value.length > last_mobile_input_count) {
             // add letter
-            game_state.letters[game_state.current_letter] = document.getElementById('keyboard').value[game_state.current_letter].toUpperCase();
-            game_state.current_letter++;
-            last_mobile_input_count = document.getElementById('keyboard').value.length;
+            game_state.letters[document.getElementById('keyboard').value.length] = document.getElementById('keyboard').value[document.getElementById('keyboard').value.length].toUpperCase();
         }
+
+        last_mobile_input_count = document.getElementById('keyboard').value.last_mobile_input_count;
 
         update_boxes();
 
