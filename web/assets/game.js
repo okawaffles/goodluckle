@@ -147,7 +147,7 @@ function start() {
     };
 
     document.getElementById('keyboard').addEventListener("input", (e) => {
-        const char = e.target.value;
+        const char = document.getElementById('keyboard').value;
         if (char.length === 1 && /[a-zA-Z]/.test(char)) {
             console.log(`Letter key pressed: ${char}`);
             if (game_state.current_letter >= 5) {
