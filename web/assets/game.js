@@ -134,7 +134,7 @@ function start() {
             if (result[i] == 'm') result_share += '🟨';
             if (result[i] == 'x') result_share += '⬛';
         }
-        result_share += 'https://millie.zone/goodluckle';
+        result_share += '\nhttps://millie.zone/goodluckle';
 
         try {
             navigator.share({text:result_share});
