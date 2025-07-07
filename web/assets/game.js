@@ -97,6 +97,8 @@ if (navigator.userAgent.includes('Android') || navigator.userAgent.includes('iPh
     }
 }
 
+let last_mobile_input_count = 0;
+
 function start() {
     if (localStorage.getItem('last-play') == date) {
         can_play = false;
@@ -140,4 +142,20 @@ function start() {
             }, 3000);
         }
     };
+
+    document.getElementById('keyboard').oninput = function() {
+        // alert('input!');
+        if (document.getElementById('keyboard').value.length < last_mobile_input_count) {
+            // remove letter
+            game_state.current_letter--;
+            game_state.letters[game_state.current_letter] = '';
+        } else if (document.getElementById('keyboard').value.length > last_mobile_input_count) {
+            // add letter
+            game_state.letters[game_state.current_letter] = document.getElementById('keyboard').value[game_state.current_letter];
+            game_state.current_letter++;
+            last_mobile_input_count = document.getElementById('keyboard').value.length;
+        }
+
+        // if nothing changed then do nothing
+    }
 }
