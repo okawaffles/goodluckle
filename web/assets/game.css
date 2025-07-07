@@ -7,11 +7,16 @@ body {
     font-family: sans-serif;
 }
 
+#solution {
+    display: none;
+}
+
 .boxes {
    display: flex;
    flex-wrap: nowrap;
    justify-content: center;
    align-items: center;
+   margin-bottom: 1rem;
 }
 
 .box {
@@ -79,9 +84,11 @@ input {
 }
 .filled-correct {
     background-color: #538d4e;
+    border-color: #538d4e;
 }
 .filled-misplaced {
     background-color: #b59f3b;
+    border-color: #b59f3b;
 }
 
 footer {

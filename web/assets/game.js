@@ -61,6 +61,11 @@ document.onkeydown = function(event) {
                 if (j.result == 'ccccc') {
                     document.getElementById('after-header').innerText = 'you win!';
                     document.getElementById('after-sub').innerText = 'you won the 0.00673174015% chance you had! congratulations!';
+                } else {
+                    fetch(`/solution?date=${date}`).then(r => r.json().then(s => {
+                        document.getElementById('solution').style.display = 'inline';
+                        document.getElementById('word').innerText = s.word;
+                    }));
                 }
             });
         });
@@ -124,6 +129,11 @@ function start() {
         if (result == 'ccccc') {
             document.getElementById('after-header').innerText = 'you win!';
             document.getElementById('after-sub').innerText = 'you won the 0.00673174015% chance you had! congratulations!';
+        } else {
+            fetch(`/solution?date=${date}`).then(r => r.json().then(s => {
+                document.getElementById('solution').style.display = 'inline';
+                document.getElementById('solution').innerText = 'The word was ' + s.word.toUpperCase() + '!';
+            }));
         }
     }
 
@@ -200,6 +210,11 @@ function start() {
                 if (j.result == 'ccccc') {
                     document.getElementById('after-header').innerText = 'you win!';
                     document.getElementById('after-sub').innerText = 'you won the 0.00673174015% chance you had! congratulations!';
+                } else {
+                    fetch(`/solution?date=${date}`).then(r => r.json().then(s => {
+                        document.getElementById('solution').style.display = 'inline';
+                        document.getElementById('word').innerText = s.word;
+                    }));
                 }
             });
         });
