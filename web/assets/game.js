@@ -64,7 +64,7 @@ document.onkeydown = function(event) {
                 } else {
                     fetch(`/solution?date=${date}`).then(r => r.json().then(s => {
                         document.getElementById('solution').style.display = 'inline';
-                        document.getElementById('word').innerText = s.word;
+                        document.getElementById('solution').innerText = 'The word was ' + s.word.toUpperCase() + '!';
                     }));
                 }
             });
@@ -213,7 +213,7 @@ function start() {
                 } else {
                     fetch(`/solution?date=${date}`).then(r => r.json().then(s => {
                         document.getElementById('solution').style.display = 'inline';
-                        document.getElementById('word').innerText = s.word;
+                        document.getElementById('solution').innerText = 'The word was ' + s.word.toUpperCase() + '!';
                     }));
                 }
             });

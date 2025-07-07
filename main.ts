@@ -6,6 +6,7 @@ const app = express();
 app.set('views', join(__dirname, 'web'));
 app.set('view engine', 'ejs');
 app.use(express.static(join(__dirname, 'web', 'assets')));
+app.use('/pwa', express.static(join(__dirname, 'web', 'pwa')));
 
 app.use((req, res, next) => {
     let IPAddress: string | undefined = 'IP Unavailable';
