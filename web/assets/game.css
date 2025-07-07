@@ -49,9 +49,10 @@ input {
     border: none;
     color: white;
 }
-
-#share {
+#after {
     display: none;
+}
+#share {
     margin-top: .5rem;
     padding: .5rem 1rem;
     font-size: 1.5rem;
