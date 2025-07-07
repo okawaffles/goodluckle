@@ -127,6 +127,7 @@ function start() {
             if (result[i] == 'm') result_share += '🟨';
             if (result[i] == 'x') result_share += '⬛';
         }
+        result_share += 'https://millie.zone/goodluckle';
 
         try {
             share(result_share);
