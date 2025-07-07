@@ -163,4 +163,40 @@ function start() {
         // Clear input so next keystroke works
         document.getElementById('keyboard').value = '';
     });
+
+    document.getElementById('submit').onclick = function() {
+        console.log('Enter key pressed');
+        if (game_state.current_letter < 5) {
+            console.log('Not enough letters entered');
+            return;
+        }
+        const word = game_state.letters.join('');
+        if (!valid_words.includes(word.toLowerCase())) {
+            console.log(`Invalid word: ${word}`);
+            return;
+        }
+        // we use fetch to send the word to the server to prevent cheating
+        fetch(`validate?word=${word.toLowerCase()}&date=${date}`, {method: 'POST'}).then(response => {
+            response.json().then(j => {
+                console.log(`result: ${j.result}`);
+                for (let i = 0; i < 5; i++) {
+                    if (j.result[i] == 'c') document.getElementById(`e${i}`).className = 'box filled-correct';
+                    if (j.result[i] == 'm') document.getElementById(`e${i}`).className = 'box filled-misplaced';
+                    if (j.result[i] == 'x') document.getElementById(`e${i}`).className = 'box filled-wrong';
+                }
+
+                localStorage.setItem('result', j.result);
+                localStorage.setItem('word', word.toUpperCase());
+                localStorage.setItem('last-play', date);
+                localStorage.setItem('day', j.day);
+
+                document.getElementById('after').style.display = 'inline';
+
+                if (j.result == 'ccccc') {
+                    document.getElementById('after-header').innerText = 'you win!';
+                    document.getElementById('after-sub').innerText = 'you won the 0.00673174015% chance you had! congratulations!';
+                }
+            });
+        });
+    }
 }
