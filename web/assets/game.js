@@ -16,7 +16,19 @@ let mobile_mode = false;
 let valid_words = [];
 let can_play = true;
 const d = new Date();
-const date = `${d.getFullYear()}-${d.getMonth()<10?'0':''}${d.getMonth()+1}-${d.getDate()<10?'0':''}${d.getDate()}`;
+let date = `${d.getFullYear()}-${d.getMonth()<10?'0':''}${d.getMonth()+1}-${d.getDate()<10?'0':''}${d.getDate()}`;
+
+const SCRIPT_VER = '20250708-0510EST';
+const PLAYING_PREVIOUS = location.search.includes('on=');
+
+if (PLAYING_PREVIOUS) {
+    date = location.search.split('on=')[1];
+}
+
+if (location.search.includes('reset=true')) {
+    localStorage.clear();
+    window.location = window.location.pathname;
+}
 
 fetch('words.txt', {method: 'GET'}).then(r => {
     r.text().then(text => {
@@ -25,7 +37,20 @@ fetch('words.txt', {method: 'GET'}).then(r => {
     });
 });
 
+let space_count = 0;
+
 document.onkeydown = function(event) {
+    if (event.key === ' ') {
+        space_count++;
+        if (space_count != 3) return;
+        space_count = 0;
+        console.log('space pressed, debug!');
+        const page_ver = document.head.querySelector('[property~=pagever][content]').content;
+        alert(`Debug info:\nEJS Version: ${page_ver}\nScript ver: ${SCRIPT_VER}`);
+    } else space_count = 0;
+
+    // console.log(event.key);
+
     if (!can_play) return;
 
     if (event.key === 'Enter') {
@@ -39,15 +64,21 @@ document.onkeydown = function(event) {
             console.log(`Invalid word: ${word}`);
             return;
         }
-        // we use fetch to send the word to the server to prevent cheating
+        can_play = false;
+        // we use fetch to send the word to the server to prevent cheating by just watching the network tab at load time
         fetch(`validate?word=${word.toLowerCase()}&date=${date}`, {method: 'POST'}).then(response => {
-            response.json().then(j => {
+            response.json().then(async j => {
                 console.log(`result: ${j.result}`);
                 for (let i = 0; i < 5; i++) {
+                    document.getElementById(`e${i}`).style.animation = 'tileFlip .5s ease-in-out';
+                    await new Promise((r) => setTimeout(() => {r()}, 250)); // sleep for .25s
                     if (j.result[i] == 'c') document.getElementById(`e${i}`).className = 'box filled-correct';
                     if (j.result[i] == 'm') document.getElementById(`e${i}`).className = 'box filled-misplaced';
                     if (j.result[i] == 'x') document.getElementById(`e${i}`).className = 'box filled-wrong';
+                    // await new Promise((r) => setTimeout(() => {r()}, 250)); // sleep for .25s
                 }
+                
+                await new Promise((r) => setTimeout(() => {r()}, 250)); // sleep for .25s
 
                 localStorage.setItem('result', j.result);
                 localStorage.setItem('word', word.toUpperCase());
@@ -62,7 +93,7 @@ document.onkeydown = function(event) {
                     document.getElementById('after-header').innerText = 'you win!';
                     document.getElementById('after-sub').innerText = 'you won the 0.00673174015% chance you had! congratulations!';
                 } else {
-                    fetch(`/solution?date=${date}`).then(r => r.json().then(s => {
+                    fetch(`solution?date=${date}`).then(r => r.json().then(s => {
                         document.getElementById('solution').style.display = 'inline';
                         document.getElementById('solution').innerText = 'The word was ' + s.word.toUpperCase() + '!';
                     }));
@@ -219,4 +250,7 @@ function start() {
             });
         });
     }
+
+    // check versions for inconsistencies
+    // do this later
 }
