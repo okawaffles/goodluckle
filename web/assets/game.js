@@ -133,10 +133,10 @@ if (navigator.userAgent.includes('Android') || navigator.userAgent.includes('iPh
     mobile_mode = true;
     if (localStorage.getItem('mobilealert') != 'true') {   
         localStorage.setItem('mobilealert', 'true');
-        alert('h..hii... uhh... this game... not intended for phones... sorry for ... jank workaround...... i add proper mobile support later.... sorry... this message wont appear again...');
+        alert(`WAIT!!!\n\nthis game wasn't originally  intended for mobile, keyboard controls might be broken!! i'm working on a proper embedded keyboard, please wait a bit!`);
     }
 
-    if (navigator.userAgent.includes('Firefox')) alert('YIKES. Goodluckle on Firefox Android is super broken, use Chrome Android instead please. You have been warned!');
+    // if (navigator.userAgent.includes('Firefox')) alert('YIKES. Goodluckle on Firefox Android is super broken, use Chrome Android instead please. You have been warned!');
 }
 
 let last_mobile_input_count = 0;
