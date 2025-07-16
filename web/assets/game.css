@@ -43,7 +43,7 @@ input {
     border: 2px solid rgb(58, 58, 58);
     color: white;
 }
-#submit {
+/* #submit {
     display: none;
     margin-top: .5rem;
     width: 15rem;
@@ -53,7 +53,7 @@ input {
     background-color: #538d4e;
     border: none;
     color: white;
-}
+} */
 #after {
     display: none;
 }
@@ -74,9 +74,9 @@ input {
         margin: 0 2px;
         font-size: 2rem;
     }
-    input, #submit {
+    /* input, #submit {
         display: inline;
-    }
+    } */
 }
 
 .filled-wrong {
@@ -107,5 +107,46 @@ footer {
     }
     100% {
         transform: scaleY(100%);
+    }
+}
+
+/* embedded keyboard */
+.keyboard {
+    display: none;
+    flex-wrap: wrap;
+    width: 100%;
+    position: fixed;
+    bottom: 3rem;
+}
+.keyboard .row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: .25rem;
+    margin-left: .5rem;
+    margin-right: .5rem;
+}
+.keyboard .row button {
+    height: 3.5rem;
+    width: 2.25rem;
+    background-color: rgb(58, 58, 58);
+    border: none;
+    border-radius: .5rem;
+    color: white;
+    font-size: larger;
+    font-weight: bold;
+}
+.keyboard .mid {
+    margin-right: 1.5rem;
+    margin-left: 1.5rem;
+}
+.keyboard .row button.slightly-wider {
+    width: 3rem;
+    font-size: .75rem;
+}
+
+@media screen and (max-width: 600px) {
+    .keyboard {
+        display: flex;
     }
 }

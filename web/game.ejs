@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Goodluckle</title>
-    <link rel="stylesheet" href="game.css?v=20250708-0510EST">
-    <script src="game.js?v=20250708-0510EST"></script>
+    <link rel="stylesheet" href="game.css?v=20250716-1518CST">
+    <script src="embeddedkeyboard.js?v=20250716-1518CST"></script>
+    <script src="game.js?v=20250716-1518CST"></script>
     <link rel="manifest" href="pwa/manifest.json">
-    <meta property="pagever" content="20250708-0508EST">
+    <meta property="pagever" content="20250716-1518CST">
 
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
@@ -25,17 +26,51 @@
 
     <h3 id="solution">The word was</h3>
 
-    <input id="keyboard" type="text" placeholder="tap here for keyboard" /><br>
-    <button id="submit">submit</button>
-
     <div id='after' class="after">
         <h1 id="after-header">you lose!</h1>
         <h2 id="after-sub">what did you expect? to win the 1-in-14855 chance of picking the right word?</h2>
         <button id="share">click to share your silly results</button>
     </div>
 
+    <div class="keyboard" id="keyboard">
+        <div class="row top">
+            <button id="key-q">Q</button>
+            <button id="key-w">W</button>
+            <button id="key-e">E</button>
+            <button id="key-r">R</button>
+            <button id="key-t">T</button>
+            <button id="key-y">Y</button>
+            <button id="key-u">U</button>
+            <button id="key-i">I</button>
+            <button id="key-o">O</button>
+            <button id="key-p">P</button>
+        </div>
+        <div class="row mid">
+            <button id="key-a">A</button>
+            <button id="key-s">S</button>
+            <button id="key-d">D</button>
+            <button id="key-f">F</button>
+            <button id="key-g">G</button>
+            <button id="key-h">H</button>
+            <button id="key-j">J</button>
+            <button id="key-k">K</button>
+            <button id="key-l">L</button>
+        </div>
+        <div class="row bot">
+            <button class="slightly-wider" id="submit">ENTER</button>
+            <button id="key-z">Z</button>
+            <button id="key-x">X</button>
+            <button id="key-c">C</button>
+            <button id="key-v">V</button>
+            <button id="key-b">B</button>
+            <button id="key-n">N</button>
+            <button id="key-m">M</button>
+            <button class="slightly-wider" id="backspace">⌫</button>
+        </div>
+    </div>
+
     <script>start()</script>
 
-    <footer>v1.2 | made with 💖 by Millie</footer>
+    <footer>v1.3 | made with 💖 by Millie</footer>
 </body>
 </html>

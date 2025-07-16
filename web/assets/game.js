@@ -18,7 +18,7 @@ let can_play = true;
 const d = new Date();
 let date = `${d.getFullYear()}-${d.getMonth()<10?'0':''}${d.getMonth()+1}-${d.getDate()<10?'0':''}${d.getDate()}`;
 
-const SCRIPT_VER = '20250708-0510EST';
+const SCRIPT_VER = '20250716-1518CST';
 const PLAYING_PREVIOUS = location.search.includes('on=');
 
 if (PLAYING_PREVIOUS) {
@@ -86,8 +86,8 @@ document.onkeydown = function(event) {
                 localStorage.setItem('day', j.day);
 
                 document.getElementById('after').style.display = 'inline';
-                document.getElementById('keyboard').style.display = 'none';
-                document.getElementById('submit').style.display = 'none';
+                // document.getElementById('keyboard').style.display = 'none';
+                // document.getElementById('submit').style.display = 'none';
 
                 if (j.result == 'ccccc') {
                     document.getElementById('after-header').innerText = 'you win!';
@@ -107,7 +107,7 @@ document.onkeydown = function(event) {
             game_state.letters[game_state.current_letter] = '';
             update_boxes();
         }
-    } else if (event.key.length === 1 && event.key.match(/[a-zA-Z]/) && !mobile_mode) {
+    } else if (event.key.length === 1 && event.key.match(/[a-zA-Z]/)) {
         console.log(`Letter key pressed: ${event.key}`);
         if (game_state.current_letter >= 5) {
             console.log('Maximum letters reached');
@@ -131,10 +131,10 @@ function update_boxes() {
 
 if (navigator.userAgent.includes('Android') || navigator.userAgent.includes('iPhone') || navigator.userAgent.includes('iPad')) {
     mobile_mode = true;
-    if (localStorage.getItem('mobilealert') != 'true') {   
-        localStorage.setItem('mobilealert', 'true');
-        alert(`WAIT!!!\n\nthis game wasn't originally  intended for mobile, keyboard controls might be broken!! i'm working on a proper embedded keyboard, please wait a bit!`);
-    }
+    // if (localStorage.getItem('mobilealert') != 'true') {   
+    //     localStorage.setItem('mobilealert', 'true');
+    //     alert(`WAIT!!!\n\nthis game wasn't originally  intended for mobile, keyboard controls might be broken!! i'm working on a proper embedded keyboard, please wait a bit!`);
+    // }
 
     // if (navigator.userAgent.includes('Firefox')) alert('YIKES. Goodluckle on Firefox Android is super broken, use Chrome Android instead please. You have been warned!');
 }
@@ -142,6 +142,8 @@ if (navigator.userAgent.includes('Android') || navigator.userAgent.includes('iPh
 let last_mobile_input_count = 0;
 
 function start() {
+    if (mobile_mode) enable_keyboard();
+
     if (localStorage.getItem('last-play') == date) {
         can_play = false;
         const result = localStorage.getItem('result');
@@ -153,8 +155,8 @@ function start() {
             if (result[i] == 'x') document.getElementById(`e${i}`).className = 'box filled-wrong';
         }
     
-        document.getElementById('keyboard').style.display = 'none';
-        document.getElementById('submit').style.display = 'none';
+        // document.getElementById('keyboard').style.display = 'none';
+        // document.getElementById('submit').style.display = 'none';
         document.getElementById('after').style.display = 'inline';
 
         if (result == 'ccccc') {
@@ -190,24 +192,6 @@ function start() {
         }
     };
 
-    document.getElementById('keyboard').addEventListener("input", (e) => {
-        const char = document.getElementById('keyboard').value;
-        if (char.length === 1 && /[a-zA-Z]/.test(char)) {
-            console.log(`Letter key pressed: ${char}`);
-            if (game_state.current_letter >= 5) {
-                console.log('Maximum letters reached');
-                document.getElementById('keyboard').value = ''; // clear input
-                return;
-            }
-            game_state.letters[game_state.current_letter] = char.toUpperCase();
-            game_state.current_letter++;
-            update_boxes();
-        }
-
-        // Clear input so next keystroke works
-        document.getElementById('keyboard').value = '';
-    });
-
     document.getElementById('submit').onclick = function() {
         console.log('Enter key pressed');
         if (game_state.current_letter < 5) {
@@ -234,9 +218,11 @@ function start() {
                 localStorage.setItem('last-play', date);
                 localStorage.setItem('day', j.day);
 
+                can_play = false;
+
                 document.getElementById('after').style.display = 'inline';
-                document.getElementById('keyboard').style.display = 'none';
-                document.getElementById('submit').style.display = 'none';
+                // document.getElementById('keyboard').style.display = 'none';
+                // document.getElementById('submit').style.display = 'none';
 
                 if (j.result == 'ccccc') {
                     document.getElementById('after-header').innerText = 'you win!';
