@@ -96,4 +96,4 @@ function wordleCompare(guess: string, solution: string) {
     return result.join('');
 }
 
-app.listen(3000);
+app.listen(80);
