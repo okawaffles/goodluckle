@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>admin</title>
+    <link rel="stylesheet" href="game.css">
+</head>
+<body>
+    <div class="setword">
+        <h1>Set Word</h1>
+        <input class="admin-input" type="date" id="date">
+        <input class="admin-input" type="text" id="word"><br><br>
+        <button class="submit" id="set">Set</button>
+    </div>
+</body>
+
+<script>
+    document.getElementById('set').onclick = () => {
+        if (document.getElementById('word').value == '' || document.getElementById('word').value.length != 5) return alert('word not valid');
+        if (document.getElementById('date').value == '' || document.getElementById('date').value.length != 10) return alert('date not valid');
+        fetch(`/admin/setword?word=${document.getElementById('word').value.toLowerCase()}&date=${document.getElementById('date').value}`, {method:'POST'}).then((result) => {
+            if (result.status != 204) return alert(`failed to set word (status: ${result.statusText})`);
+            alert(`set word on ${document.getElementById('date').value} to be "${document.getElementById('word').value}" successfully`);
+        });
+    }
+</script>
+</html>

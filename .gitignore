@@ -3,3 +3,4 @@ main.js
 package-lock.json
 solutions.json
 .idea/
+.env

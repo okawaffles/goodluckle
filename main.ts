@@ -1,3 +1,4 @@
+import { config } from 'dotenv';
 import express from 'express';
 import { readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
@@ -8,6 +9,8 @@ app.set('view engine', 'ejs');
 app.use(express.static(join(__dirname, 'web', 'assets')));
 app.use('/.proxy', express.static(join(__dirname, 'web', 'assets')));
 app.use('/pwa', express.static(join(__dirname, 'web', 'pwa')));
+
+config({path:join(__dirname, '.env')});
 
 app.use((req, res, next) => {
     let IPAddress: string | undefined = 'IP Unavailable';
@@ -28,6 +31,18 @@ const all_words = readFileSync(join(__dirname, 'assets', 'picks.txt'), 'utf-8').
 
 app.get('/', (req, res) => {
     res.render('game');
+});
+// @ts-ignore
+app.get('/admin', (req, res) => {
+    if (!req.headers.cookie?.includes(`key=${process.env.MASTER_KEY}`)) return res.status(401).render('setkey');
+    res.render('admin');
+});
+// @ts-ignore gonna lose it
+app.post('/admin/setword', (req, res) => {
+    if (!req.query || !req.query['date'] || !req.query['date']) return res.status(400).end();
+    let words = JSON.parse(readFileSync(join(__dirname, 'solutions.json'), 'utf-8'));
+    words[req.query['date'] as string] = req.query['word'];
+    writeFileSync(join(__dirname, 'solutions.json'), JSON.stringify(words));
 });
 
 // eg: POST /validate?word=beans&date=2025-07-06
@@ -96,4 +111,8 @@ function wordleCompare(guess: string, solution: string) {
     return result.join('');
 }
 
-app.listen(80);
+app.listen(process.env.PORT, (err) => {
+    if (err) console.error(`could not listen: ${err}`);
+
+    console.log(`listening on ${process.env.PORT}`)
+});
