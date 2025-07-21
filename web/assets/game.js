@@ -18,7 +18,7 @@ let can_play = true;
 const d = new Date();
 let date = `${d.getFullYear()}-${d.getMonth()<10?'0':''}${d.getMonth()+1}-${d.getDate()<10?'0':''}${d.getDate()}`;
 
-const SCRIPT_VER = '20250716-1518CST';
+const SCRIPT_VER = '20250720-1901CST';
 const PLAYING_PREVIOUS = location.search.includes('on=');
 
 if (PLAYING_PREVIOUS) {
@@ -86,8 +86,23 @@ document.onkeydown = function(event) {
                 localStorage.setItem('day', j.day);
 
                 document.getElementById('after').style.display = 'inline';
+                document.getElementById('keyboard').style.display = 'none';
                 // document.getElementById('keyboard').style.display = 'none';
                 // document.getElementById('submit').style.display = 'none';
+
+                if (!window.isSecureContext) {
+                    document.getElementById('isc-box').style.display = 'inline';
+                    document.getElementById('share').style.display = 'none';
+                    let result = localStorage.getItem('result');
+                    let result_share = `Goodluckle ${localStorage.getItem('day')} ${result=='ccccc'?'1/1':'X/1'}\n`;
+                    for (let i = 0; i < 5; i++) {
+                        if (result[i] == 'c') result_share += '🟩';
+                        if (result[i] == 'm') result_share += '🟨';
+                        if (result[i] == 'x') result_share += '⬛';
+                    }
+                    result_share += '\nhttps://millie.zone/goodluckle';
+                    document.getElementById('isc-box').value = result_share;
+                }
 
                 if (j.result == 'ccccc') {
                     document.getElementById('after-header').innerText = 'you win!';
@@ -144,6 +159,11 @@ let last_mobile_input_count = 0;
 function start() {
     if (mobile_mode) enable_keyboard();
 
+    if (!window.isSecureContext) {
+        document.getElementById('foot').innerText = `${document.getElementById('foot').innerText} | NSC`;
+        document.getElementById('isc-notice').style.display = 'inline';
+    }
+
     if (localStorage.getItem('last-play') == date) {
         can_play = false;
         const result = localStorage.getItem('result');
@@ -158,6 +178,7 @@ function start() {
         // document.getElementById('keyboard').style.display = 'none';
         // document.getElementById('submit').style.display = 'none';
         document.getElementById('after').style.display = 'inline';
+        document.getElementById('keyboard').style.display = 'none';
 
         if (result == 'ccccc') {
             document.getElementById('after-header').innerText = 'you win!';
@@ -167,6 +188,20 @@ function start() {
                 document.getElementById('solution').style.display = 'inline';
                 document.getElementById('solution').innerText = 'The word was ' + s.word.toUpperCase() + '!';
             }));
+        }
+
+        if (!window.isSecureContext) {
+            document.getElementById('isc-box').style.display = 'inline';
+            document.getElementById('share').style.display = 'none';
+            let result = localStorage.getItem('result');
+            let result_share = `Goodluckle ${localStorage.getItem('day')} ${result=='ccccc'?'1/1':'X/1'}\n`;
+            for (let i = 0; i < 5; i++) {
+                if (result[i] == 'c') result_share += '🟩';
+                if (result[i] == 'm') result_share += '🟨';
+                if (result[i] == 'x') result_share += '⬛';
+            }
+            result_share += '\nhttps://millie.zone/goodluckle';
+            document.getElementById('isc-box').value = result_share;
         }
     }
 
@@ -205,12 +240,15 @@ function start() {
         }
         // we use fetch to send the word to the server to prevent cheating
         fetch(`validate?word=${word.toLowerCase()}&date=${date}`, {method: 'POST'}).then(response => {
-            response.json().then(j => {
+            response.json().then(async j => {
                 console.log(`result: ${j.result}`);
                 for (let i = 0; i < 5; i++) {
+                    document.getElementById(`e${i}`).style.animation = 'tileFlip .5s ease-in-out';
+                    await new Promise((r) => setTimeout(() => {r()}, 250)); // sleep for .25s
                     if (j.result[i] == 'c') document.getElementById(`e${i}`).className = 'box filled-correct';
                     if (j.result[i] == 'm') document.getElementById(`e${i}`).className = 'box filled-misplaced';
                     if (j.result[i] == 'x') document.getElementById(`e${i}`).className = 'box filled-wrong';
+                    // await new Promise((r) => setTimeout(() => {r()}, 250)); // sleep for .25s
                 }
 
                 localStorage.setItem('result', j.result);
@@ -221,6 +259,7 @@ function start() {
                 can_play = false;
 
                 document.getElementById('after').style.display = 'inline';
+                document.getElementById('keyboard').style.display = 'none';
                 // document.getElementById('keyboard').style.display = 'none';
                 // document.getElementById('submit').style.display = 'none';
 
@@ -232,6 +271,20 @@ function start() {
                         document.getElementById('solution').style.display = 'inline';
                         document.getElementById('solution').innerText = 'The word was ' + s.word.toUpperCase() + '!';
                     }));
+                }
+
+                if (!window.isSecureContext) {
+                    document.getElementById('isc-box').style.display = 'inline';
+                    document.getElementById('share').style.display = 'none';
+                    let result = localStorage.getItem('result');
+                    let result_share = `Goodluckle ${localStorage.getItem('day')} ${result=='ccccc'?'1/1':'X/1'}\n`;
+                    for (let i = 0; i < 5; i++) {
+                        if (result[i] == 'c') result_share += '🟩';
+                        if (result[i] == 'm') result_share += '🟨';
+                        if (result[i] == 'x') result_share += '⬛';
+                    }
+                    result_share += '\nhttps://millie.zone/goodluckle';
+                    document.getElementById('isc-box').value = result_share;
                 }
             });
         });

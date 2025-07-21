@@ -43,8 +43,7 @@ input {
     border: 2px solid rgb(58, 58, 58);
     color: white;
 }
-/* #submit {
-    display: none;
+.submit {
     margin-top: .5rem;
     width: 15rem;
     height: 3rem;
@@ -53,7 +52,11 @@ input {
     background-color: #538d4e;
     border: none;
     color: white;
-} */
+    transition: background-color .2s ease-in-out;
+}
+.submit:hover {
+    background-color: rgb(106, 170, 100, 0.5);
+}
 #after {
     display: none;
 }
@@ -149,4 +152,33 @@ footer {
     .keyboard {
         display: flex;
     }
+}
+
+.admin-input {
+    display: inline;
+    margin-top: 0;
+}
+
+.insecure-copy textarea {
+    display: none;
+    margin-left: 1rem;
+    font-size: 1rem;
+    color: white;
+    cursor: pointer;
+    margin-top: 1rem;
+    padding: 2rem 1rem;
+    width: 20rem;
+    height: 4rem;
+    background-color: black;
+    border: 2px solid white;
+    border-radius: .5rem;
+}
+
+@media screen and (max-width: 600px) {
+    .insecure-copy textarea {
+        width: 15rem;
+        height: 3rem;
+        font-size: .8rem;
+    }
+    
 }
