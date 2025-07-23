@@ -14,6 +14,7 @@ const game_state = {
 
 let mobile_mode = false;
 let valid_words = [];
+let subs = [];
 let can_play = true;
 const d = new Date();
 let date = `${d.getFullYear()}-${d.getMonth()<10?'0':''}${d.getMonth()+1}-${d.getDate()<10?'0':''}${d.getDate()}`;
@@ -34,6 +35,12 @@ fetch('words.txt', {method: 'GET'}).then(r => {
     r.text().then(text => {
         valid_words = text.split('\n').map(word => word.trim())
         console.log(`loaded ${valid_words.length} valid words`);
+    });
+});
+
+fetch('subs.txt').then(r => {
+    r.text().then(text => {
+        subs = text.split('\n').map(word => word.trim());
     });
 });
 
