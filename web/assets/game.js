@@ -116,6 +116,7 @@ document.onkeydown = function(event) {
                     document.getElementById('after-sub').innerText = 'you won the 0.00673174015% chance you had! congratulations!';
                 } else {
                     fetch(`solution?date=${date}`).then(r => r.json().then(s => {
+                        document.getElementById('after-sub').innerText = subs[Math.floor(Math.random() * subs.length)].replace('$GUESS', word);
                         document.getElementById('solution').style.display = 'inline';
                         document.getElementById('solution').innerText = 'The word was ' + s.word.toUpperCase() + '!';
                     }));
@@ -193,6 +194,7 @@ function start() {
         } else {
             fetch(`/solution?date=${date}`).then(r => r.json().then(s => {
                 document.getElementById('solution').style.display = 'inline';
+                document.getElementById('after-sub').innerText = subs[Math.floor(Math.random() * subs.length)].replace('$GUESS', word);
                 document.getElementById('solution').innerText = 'The word was ' + s.word.toUpperCase() + '!';
             }));
         }
@@ -276,6 +278,7 @@ function start() {
                 } else {
                     fetch(`/solution?date=${date}`).then(r => r.json().then(s => {
                         document.getElementById('solution').style.display = 'inline';
+                        document.getElementById('after-sub').innerText = subs[Math.floor(Math.random() * subs.length)].replace('$GUESS', word);
                         document.getElementById('solution').innerText = 'The word was ' + s.word.toUpperCase() + '!';
                     }));
                 }
