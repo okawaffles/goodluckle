@@ -225,7 +225,7 @@ function start() {
         result_share += '\nhttps://millie.zone/goodluckle';
 
         try {
-            if (mobile_mode) throw new Error('fail out');
+            if (!mobile_mode) throw new Error('fail out');
             navigator.share({text:result_share});
         } catch (e) {
             console.error(e);
