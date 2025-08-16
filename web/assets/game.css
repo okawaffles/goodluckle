@@ -74,6 +74,16 @@ input {
     color: white;
     font-family: monospace;
 }
+#link-okabot {
+    margin-top: .5rem;
+    padding: .5rem 1rem;
+    font-size: 1rem;
+    border-radius: .6rem;
+    background-color: #9d60cc;
+    border: none;
+    color: white;
+    font-family: monospace;
+}
 
 @media screen and (max-width: 600px) {
     .box {

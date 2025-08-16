@@ -92,6 +92,10 @@ document.onkeydown = function(event) {
                 localStorage.setItem('last-play', date);
                 localStorage.setItem('day', j.day);
 
+                if (localStorage.getItem('gll_okabot')) {
+                    fetch(`https://bot.millie.zone/gll/start?token=${localStorage.getItem('gll_okabot')}&score=${j.result.replaceAll('c', 'g').replaceAll('m', 'y')}`);
+                }
+
                 document.getElementById('after').style.display = 'inline';
                 document.getElementById('keyboard').style.display = 'none';
                 // document.getElementById('keyboard').style.display = 'none';
@@ -170,6 +174,29 @@ function start() {
     if (!window.isSecureContext) {
         document.getElementById('foot').innerText = `${document.getElementById('foot').innerText} | NSC`;
         document.getElementById('isc-notice').style.display = 'inline';
+    }
+
+    if (localStorage.getItem('gll_okabot')) document.getElementById('link-okabot').style.display = 'none';
+    else {
+        document.getElementById('link-okabot').onclick = async () => {
+            const token = crypto.randomUUID();
+            const username = prompt('enter your discord username');
+            let result = await fetch(`https://bot.millie.zone/authorize?app=goodluckle&username=${username}&token=${token}`);
+            if (result.status == 200) {
+                alert(`please authorize via okabot, then press OK here AFTER authorizing!\n\nyour token: ${token}`);
+            } else {
+                return alert('okabot either could not find you, or could not DM you. please ensure your username is correct, and okabot can DM you.');
+            }
+            
+            result = await fetch(`https://bot.millie.zone/gll/setup?token=${token}`);
+            const data = await result.json();
+            if (data.success == false) {
+                return alert(`Failed to link to okabot.\n\nReason: ${data.reason}`);
+            }
+
+            localStorage.setItem('gll_okabot', token);
+            alert('account linked successfully! your results will be sent to CATGIRL CENTRAL automatically!');
+        }
     }
 
     if (localStorage.getItem('last-play') == date) {
@@ -265,6 +292,10 @@ function start() {
                 localStorage.setItem('word', word.toUpperCase());
                 localStorage.setItem('last-play', date);
                 localStorage.setItem('day', j.day);
+
+                if (localStorage.getItem('gll_okabot')) {
+                    fetch(`https://bot.millie.zone/gll/start?token=${localStorage.getItem('gll_okabot')}&score=${j.result.replaceAll('c', 'g').replaceAll('m', 'y')}`);
+                }
 
                 can_play = false;
 
