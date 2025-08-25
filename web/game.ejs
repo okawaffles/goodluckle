@@ -4,11 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Goodluckle</title>
-    <link rel="stylesheet" href="game.css?v=20250720-1901CST">
+    <link rel="stylesheet" href="game.css?v=serika">
     <script src="embeddedkeyboard.js?v=20250720-1901CST"></script>
     <script src="game.js?v=neru"></script>
     <link rel="manifest" href="pwa/manifest.json">
     <meta property="pagever" content="20250720-1901CST">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap" rel="stylesheet">
 
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
@@ -16,6 +20,7 @@
 </head>
 <body>
     <h1 class="title">Goodluckle</h1>
+    <h2>millie.zone</h2>
     <div class="boxes">
         <div id="e0" class="box"></div>
         <div id="e1" class="box"></div>
@@ -24,9 +29,7 @@
         <div id="e4" class="box"></div>
     </div>
 
-    <button id="link-okabot">link to okabot (do this before playing!)</button>
-
-    <h3 id="solution">The word was</h3>
+    <h3 id="solution">The word was $GUESS</h3>
 
     <div id='after' class="after">
         <h1 id="after-header">you lose!</h1>
@@ -41,6 +44,8 @@
     <div class="ba">
         <h3>like Blue Archive? try out <a href="https://millie.zone/blue-archival">Blue Archival</a>!</h3>
     </div>
+    <br>
+    <button id="link-okabot">link to okabot</button>
 
     <div class="keyboard" id="keyboard">
         <div class="row top">
@@ -79,7 +84,7 @@
         </div>
     </div>
     
-    <footer id="foot">v1.4 | made with 💖 by Millie</footer>
+    <footer id="foot">v1.5 | made with 💖 by Millie</footer>
     
     <script>start()</script>
 </body>
