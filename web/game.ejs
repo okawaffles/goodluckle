@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Goodluckle</title>
     <link rel="stylesheet" href="game.css?v=serika">
+    <link rel="stylesheet" href="stylebar.css?v=aris">
     <script src="embeddedkeyboard.js?v=20250720-1901CST"></script>
     <script src="game.js?v=neru"></script>
     <link rel="manifest" href="pwa/manifest.json">
@@ -19,8 +20,18 @@
     <meta http-equiv="Expires" content="0" />
 </head>
 <body>
+    <nav>
+        <div class="left">
+            <img src="logo.png" alt="millie.zone logo" onclick="document.location = 'https://millie.zone'">
+            <!-- <div class="splitter"></div> -->
+            <!-- <div class="h2p" onclick="document.location = 'howtoplay'">How to Play</div> -->
+        </div>
+        <div class="right">
+            <div class="admin" onclick="document.location = 'admin'">Admin</div>
+        </div>
+    </nav>
+
     <h1 class="title">Goodluckle</h1>
-    <h2>millie.zone</h2>
     <div class="boxes">
         <div id="e0" class="box"></div>
         <div id="e1" class="box"></div>

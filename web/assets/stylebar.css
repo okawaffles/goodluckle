@@ -1,0 +1,59 @@
+nav {
+    display: flex;
+    justify-content: space-between;
+    padding: .5rem;
+    background-color: rgb(46, 35, 58);
+}
+nav img {
+    margin-left: .5rem;
+    height: 3rem;
+    cursor: pointer;
+}
+nav .left, nav .right {
+    display: flex;
+    align-content: center;
+}
+nav .left .splitter {
+    height: 3rem;
+    width: .25rem;
+    background-color: rgb(29, 17, 41);
+    border-radius: 1rem;
+}
+nav .left div:not(.splitter), nav .right div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 1rem;
+    margin: 0 1rem;
+    background-color: rgb(29, 17, 41);
+    border: 2px solid rgb(75, 58, 92);
+    border-radius: .5rem;
+    cursor: pointer;
+    transition: .2s background-color ease-in-out;    
+}
+nav .left div:not(.splitter):hover, nav .right div:hover {
+    background-color: rgb(41, 24, 58);
+}
+nav .right div:nth-child(1) {
+    margin-right: 0;
+}
+
+@media screen and (max-width: 600px) {
+    nav .right {
+        display: none;
+    }
+    nav .splitter {
+        display: none;
+    }
+    nav .left {
+        justify-content: space-between;
+        width: 100%;
+        margin: 0;
+    }
+    nav .left img {
+        margin: 0;
+    }
+    nav .left div {
+        margin: 0 !important;
+    }
+}
